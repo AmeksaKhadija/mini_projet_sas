@@ -36,8 +36,19 @@ void add_nouvelle_livre()
     gets(livre1[compteur].auteur);
     printf("\n Entrer le prix de ce livre : ");
     scanf("%d", &livre1[compteur].prix);
-    printf("\n Entrer la quantite dece livre :");
-    scanf("%d", &livre1[compteur].quantite);
+
+    do
+    {
+        printf("\n Entrer la quantite de ce livre (minimum 1) : ");
+        scanf("%d", &livre1[compteur].quantite);
+
+        if (livre1[compteur].quantite < 1)
+        {
+            printf("Erreur : La quantite doit être au moins 1. Veuillez réessayer.\n");
+        }
+    }
+    while (livre1[compteur].quantite < 1);    // Répéter tant que la quantité est inférieure à 1
+
     compteur++;
 }
 
@@ -48,7 +59,7 @@ void Affichage_livre_disponible()
     printf("\n Voici les livres qui sont disponibles :\n");
     for (i = 0; i < compteur; i++)
     {
-        printf("\n livre %d: \n id = %d \n titre = %s \n auteur = %s \n prix = %d \n quantité = %d ", i + 1, livre1[i].id, livre1[i].titre, livre1[i].auteur, livre1[i].prix, livre1[i].quantite);
+        printf("\n livre %d: \n id = %d \n titre = %s \n auteur = %s \n prix = %d \n quantitee = %d ", i + 1, livre1[i].id, livre1[i].titre, livre1[i].auteur, livre1[i].prix, livre1[i].quantite);
     }
 }
 
@@ -65,7 +76,7 @@ void recherche_livre_par_titre()
         if (strcmp(livre1[i].titre, TITRErecherche) == 0)
         {
             found = 1;
-            printf("\n livre %d: \n id = %d \n titre = %s \n auteur = %s \n prix = %d \n quantité = %d ", i + 1, livre1[i].id, livre1[i].titre, livre1[i].auteur, livre1[i].prix, livre1[i].quantite);
+            printf("\n livre %d: \n id = %d \n titre = %s \n auteur = %s \n prix = %d \n quantite = %d ", i + 1, livre1[i].id, livre1[i].titre, livre1[i].auteur, livre1[i].prix, livre1[i].quantite);
         }
     }
     if (!found)
@@ -82,18 +93,30 @@ void Modifier_quantite()
 
     for (i = 0; i < compteur; i++)
     {
+        
         if (livre1[i].id == ID)
         {
             found = 1;
-            printf("Entrer un nouveau quantee pour %s:", livre1[i].titre);
-            getchar();
-            gets(livre1[i].quantite);
-            printf("la quantiteé du livre %s est modifier avec success,livre1[i].titre");
+            do
+            {
+                printf("\n Entrer une nouvelle quantitée pour ce livre (minimum 1) : ");
+                scanf("%d", &livre1[i].quantite);
+
+                if (livre1[i].quantite < 1)
+                {
+                    printf("Erreur : La quantite doit être au moins 1. Veuillez réessayer.\n");
+                }
+            }
+            while (livre1[i].quantite < 1);
+
+            printf("la quantiteé du livre %s est modifier avec success",livre1[i].titre);
+            break;
         }
+
     }
     if (!found)
     {
-        printf("le livre avec ID %d n'existe pas ☻", ID);
+        printf("le livre avec ID %d n'existe pas ", ID);
     }
 }
 
@@ -105,7 +128,7 @@ int menu()
     do
     {
         printf("\n===================================== GESTION DE de Stock =====================================\n");
-        printf("choisissez un choix : \n 1.Ajouter un livre au stock :\n 2.Afficher tous les livres disponibles :\n 3.Rechercher un livre par son titre :\n 4.Mettre à jour la quantité d'un livre: \n 5.Supprimer un livre du stock: \n 6.Afficher le nombre total de livres en stock :\n 7.quitter\n");
+        printf("choisissez un choix : \n 1.Ajouter un livre au stock :\n 2.Afficher tous les livres disponibles :\n 3.Rechercher un livre par son titre :\n 4.Modifier la quantitee dun livre: \n 5.Supprimer un livre du stock: \n 6.Afficher le nombre total de livres en stock :\n 7.quitter\n");
         scanf("%d", &choix);
         switch (choix)
         {
@@ -122,5 +145,6 @@ int menu()
             Modifier_quantite();
             break;
         }
-    } while (choix != 7);
+    }
+    while (choix != 7);
 }
