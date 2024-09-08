@@ -93,7 +93,7 @@ void Modifier_quantite()
 
     for (i = 0; i < compteur; i++)
     {
-        
+
         if (livre1[i].id == ID)
         {
             found = 1;
@@ -119,6 +119,35 @@ void Modifier_quantite()
         printf("le livre avec ID %d n'existe pas ", ID);
     }
 }
+//function pour supprimer un livre
+void Supprimer_livre()
+{
+    printf("===============================SUPPRIMER D'UN LIVRE===============================");
+    int found = 1;
+    printf("\n Entrer ID de le livre que vous voulez supprimer : ");
+    scanf("%d",&IDdel);
+    for(i=0; i<compteur; i++)
+    {
+        if(livre1[i].id == IDdel)
+        {
+            found = 1;
+        }
+        compteur--;
+        printf("le livre de ID = %d est supprimer avec success.",IDdel);
+        break;
+    }
+    if(!found)
+    {
+        printf("le livre avec ID = %d n'existe pas.",IDdel);
+    }
+}
+
+//function pour afficher le nombre totale des livres
+void Afficher_nombre_total()
+{
+    printf("===============================NOMBRE TOTAL DES LIVRES===============================");
+    printf("\n le nombre totale des livres est :%d",compteur);
+}
 
 int menu()
 {
@@ -143,6 +172,12 @@ int menu()
             break;
         case 4:
             Modifier_quantite();
+            break;
+        case 5:
+            Supprimer_livre();
+            break;
+        case 6:
+            Afficher_nombre_total();
             break;
         }
     }
