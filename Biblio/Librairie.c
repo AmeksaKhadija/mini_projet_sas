@@ -18,18 +18,35 @@ struct livre
 };
 struct livre livre1[200];
 int compteur = 0;
-int ID;
 int IDrecherche;
 char TITRErecherche[50];
+int ID;
 int IDdel;
-int i, j;
+int i,j;
+int id_existe = 0;
+int nouvel_id;
 
 // function pour ajouter un livre
 void add_nouvelle_livre()
 {
     printf("===============================AJOUTER UN LIVRE===============================");
-    printf("\n entrer un identifiant unique :");
-    scanf("%d", &livre1[compteur].id);
+    do
+    {
+        printf("\n entrer un identifiant unique :");
+        scanf("%d", &nouvel_id);
+        id_existe = 0;
+        for(int i=0; i<compteur; i++)
+        {
+            if(livre1[i].id == nouvel_id)
+            {
+                id_existe = 1;
+                printf("Erreur : Cet identifiant existe déjà. Veuillez entrer un identifiant unique.\n");
+                break;
+            }
+        }
+    }while(id_existe == 1);
+    livre1[compteur].id = nouvel_id;
+
     printf("\n Entrer le titre de livre :");
     getchar();
     gets(livre1[compteur].titre);
@@ -132,7 +149,8 @@ void Supprimer_livre()
         if(livre1[i].id == IDdel)
         {
             found = 1;
-            for(int N=i;N<compteur;N++){
+            for(int N=i; N<compteur; N++)
+            {
                 livre1[N] = livre1[N+1];
             }
         }
