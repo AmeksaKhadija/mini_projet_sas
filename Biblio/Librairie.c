@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -73,7 +74,7 @@ void recherche_livre_par_titre()
     scanf("%s", &TITRErecherche);
     for (i = 0; i < compteur; i++)
     {
-        if (strcmp(livre1[i].titre, TITRErecherche) == 0)
+        if (strcasecmp(livre1[i].titre, TITRErecherche) == 0)
         {
             found = 1;
             printf("\n livre %d: \n id = %d \n titre = %s \n auteur = %s \n prix = %d \n quantite = %d ", i + 1, livre1[i].id, livre1[i].titre, livre1[i].auteur, livre1[i].prix, livre1[i].quantite);
@@ -131,6 +132,9 @@ void Supprimer_livre()
         if(livre1[i].id == IDdel)
         {
             found = 1;
+            for(int N=i;N<compteur;N++){
+                livre1[N] = livre1[N+1];
+            }
         }
         compteur--;
         printf("le livre de ID = %d est supprimer avec success.",IDdel);
