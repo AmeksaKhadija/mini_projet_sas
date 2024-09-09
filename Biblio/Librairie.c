@@ -123,7 +123,7 @@ void Modifier_quantite()
 void Supprimer_livre()
 {
     printf("===============================SUPPRIMER D'UN LIVRE===============================");
-    int found = 1;
+    int found = 0;
     printf("\n Entrer ID de le livre que vous voulez supprimer : ");
     scanf("%d",&IDdel);
     for(i=0; i<compteur; i++)
